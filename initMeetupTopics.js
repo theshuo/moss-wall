@@ -34,7 +34,12 @@ if (fs.existsSync(topicsFile)) {
   rp(getEndpoint('/topics')).then((res) => {
     const topics = res.results;
     const topicList = topics.map((topic) => {
-      return topic.name;
+      return {
+        id: topic.id,
+        urlkey: topic.urlkey,
+        name: topic.name,
+        members: topic.members,
+      };
     });
     jsonfile.writeFile(topicsFile, topicList, function(err) {
       console.error(err);
