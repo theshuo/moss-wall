@@ -1,3 +1,8 @@
+@font-face {
+  font-family: 'Galano Grotesque DEMO';
+  src: url('Galano_Grotesque_DEMO_Bold.otf');
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -7,6 +12,7 @@
 html {
   width: 100%;
   height: 100%;
+  font-size:62.5%;
 }
 
 body {
@@ -15,4 +21,8 @@ body {
   bottom: 0;
   left: 0;
   right: 0;
+}
+
+#app {
+  height: 100%;
 }
