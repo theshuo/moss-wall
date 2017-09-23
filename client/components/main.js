@@ -2,6 +2,7 @@ import React from 'react';
 // import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import {colors} from './styles';
+import Card from './card';
 import Control from './control';
 import {connect} from 'react-redux';
 
@@ -17,7 +18,7 @@ const Main = () => {
   `;
 
   const MainHeader = styled.header`
-    margin: 4rem 0;
+    margin-top: 4rem;
   `;
 
   const MainHeaderText = styled.h1`
@@ -37,9 +38,16 @@ const Main = () => {
   `;
 
   const Content = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     flex: 1;
-    font-size: 1.8rem;
-    font-family: "Nunito", sans-serif;
+    margin-bottom: 8rem;
+  `;
+
+  const ControlWrapper = styled.div`
+    display: flex;
   `;
 
   return (
@@ -49,8 +57,11 @@ const Main = () => {
         <MainHeaderHr />
       </MainHeader>
       <Content>
-        <Control name="dislike" direction="left" />
-        <Control name="like" direction="right" />
+        <Card name="Snoozing" />
+        <ControlWrapper>
+          <Control name="dislike" direction="left" />
+          <Control name="like" direction="right" />
+        </ControlWrapper>
       </Content>
     </MainDiv>
   );
