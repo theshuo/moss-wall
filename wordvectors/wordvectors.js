@@ -1,13 +1,14 @@
 const path = require('path');
 const w2v = require('word2vec');
 const vectorFile = path.resolve(__dirname, './text8-vector.bin');
-const twitterFile = path.resolve(__dirname, '../word2vec_twitter_model/word2vec_twitter_model.bin');
-var prompt = require('prompt');
+// const twitterFile = path.resolve(__dirname, '../word2vec_twitter_model/word2vec_twitter_model.bin');
 
 const start = () => {
-  w2v.loadModel(twitterFile, (err, model) => {
-    if (err) console.log('Error! -', err);
-    else {
+  console.log('loading vectorssssss......');
+  w2v.loadModel(vectorFile, (err, model) => {
+    if (err) {
+      console.log('Error! -', err);
+    } else {
       const getClosest = (phrase) => {
         return model.mostSimilar(phrase, 20);
       };
