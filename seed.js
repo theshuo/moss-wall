@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const db = require('./server/db');
+const Promise = require('bluebird');
 const { Word, Topic } = require('./server/db/models');
 const jsonfile = require('jsonfile');
 const chunkingStreams = require('chunking-streams');
@@ -58,16 +59,29 @@ const seedTopics = () => {
   if (fs.existsSync(topicsFile)) {
     console.log(`Reading from ${topicsFile}`);
     topics = jsonfile.readFileSync(topicsFile);
-    Topic.bulkCreate(
-      topics.map((topic) => {
-        const phrase = topic.name.replace(/-/g, ' ').replace(/\W+/g, ' ').toLowerCase();
-        return {
-          name: topic.name.toLowerCase(),
-          urlkey: topic.urlkey,
-          vector: calcVector(phrase),
-        };
-      }),
-    );
+
+    topicPromises = topics.map((topic) => {
+      const phrase = topic.name.replace(/-/g, ' ').replace(/[^\w\s]|_/g, '').replace(/\s+/g, ' ').toLowerCase();
+      return calcVector(phrase).then((vector) => {
+        // console.log(`[${phrase}] vector: [${vector}]`);
+        topic.vector = vector;
+        return topic;
+      });
+    });
+
+    Promise.all(topicPromises).then((topicsList) => {
+      Topic.bulkCreate(
+        topicsList.map((topic) => {
+          return {
+            name: topic.name.toLowerCase(),
+            urlkey: topic.urlkey,
+            vector: topic.vector,
+          };
+        }),
+      ).then(() => {
+        console.log('Done with Topics');
+      });
+    });
   } else {
     console.log(`${topicsFile} not found.`);
   }
@@ -75,7 +89,43 @@ const seedTopics = () => {
 
 const calcVector = (phrase) => {
   const words = phrase.split(' ');
-  words.reduce();
+  const wordInstances = words.map((word) => {
+    return Word.findOne({
+      where: {
+        name: word,
+      },
+    });
+  });
+
+  return Promise.all(wordInstances).then((foundWords) => {
+    foundWords.map((word) => {
+      if (word) {
+        console.log(`[${phrase}] found [${word.name}]`);
+      } else {
+        console.log(`[${phrase}] didnt  find`);
+      }
+    });
+    // console.log(`[${phrase}]`);
+    const avgVector = [ ...foundWords[0].vector ];
+    for (let i = 1; i < foundWords.length; i++) {
+      for (let j = 0; j < foundWords[i].vector.length; j++) {
+        avgVector[j] += foundWords[i].vector[j];
+      }
+    }
+    const mag = calcVectorMagnitude(avgVector);
+    return avgVector.map((el) => {
+      return el / mag;
+    });
+  });
+};
+
+const calcVectorMagnitude = (vector) => {
+  return Math.sqrt(
+    vector.reduce((a, b) => {
+      return a + b * b;
+    }),
+    0,
+  );
 };
 
 const seedDb = () => {
