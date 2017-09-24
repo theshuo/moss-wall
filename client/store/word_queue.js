@@ -26,7 +26,10 @@ export const popWord = () => ({type: POP_WORD_OFF_QUEUE});
 export const fetchWordList = () =>
   (dispatch) =>
     axios.get('/api/topics')
-      .then(res => dispatch(createQueue(res.data)))
+      .then(res => {
+        const randTopics = res.data.sort(() => 0.5 - Math.random());
+        return dispatch(createQueue(randTopics.slice(0, 10)));
+      })
       .catch(err => {
         console.error(err);
         dispatch(createQueue(['404']));
