@@ -1,4 +1,4 @@
-// import axios from 'axios';
+import axios from 'axios';
 
 /**
  * ACTION TYPES
@@ -15,13 +15,22 @@ const startingQueue = [];
 /**
  * ACTION CREATORS
  */
-export const createQueue = queue => ({type: CREATE_QUEUE, queue});
+const createQueue = queue => ({type: CREATE_QUEUE, queue});
 export const addWord = word => ({type: ADD_WORD_TO_QUEUE, word});
 export const popWord = () => ({type: POP_WORD_OFF_QUEUE});
 
 /**
  * THUNK CREATORS
  */
+
+export const fetchWordList = () =>
+  (dispatch) =>
+    axios.get('/api/topics')
+      .then(res => dispatch(createQueue(res.data)))
+      .catch(err => {
+        console.error(err);
+        dispatch(createQueue(['404']));
+      });
 
 /**
  * REDUCER

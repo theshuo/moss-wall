@@ -5,7 +5,7 @@ import {colors} from './styles';
 import Card from './card';
 import Control from './control';
 import {connect} from 'react-redux';
-import {createQueue} from '../store';
+import { fetchWordList } from '../store';
 
 const MainDiv = styled.div`
   display: flex;
@@ -50,13 +50,9 @@ const ControlWrapper = styled.div`
 `;
 
 class Main extends Component {
-  constructor (props) {
-    super(props);
-    this.dummyQueue = ['Snoozing', 'Biking', 'Social Dancing', 'Water Sports', 'Programming', 'Chess'];
-  }
 
   componentDidMount () {
-    this.props.setList(this.dummyQueue);
+    this.props.loadList();
   }
 
   render () {
@@ -91,8 +87,8 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    setList (list) {
-      dispatch(createQueue(list));
+    loadList () {
+      dispatch(fetchWordList());
     }
   };
 };
@@ -104,5 +100,5 @@ export default connect(mapState, mapDispatch)(Main);
  */
 Main.propTypes = {
   currentCard: PropTypes.string.isRequired,
-  setList: PropTypes.func.isRequired,
+  loadList: PropTypes.func.isRequired,
 };
