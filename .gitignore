@@ -6,6 +6,4 @@ data/
 .DS_Store
 npm-debug.log
 yarn-error.log
-word2vec_twitter_model*
-glove.twitter.*
-text8*
+data
