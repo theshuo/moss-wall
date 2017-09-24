@@ -4,19 +4,25 @@ import styled from 'styled-components';
 import {colors} from './styles';
 import Pointer from './pointer';
 import {connect} from 'react-redux';
+import {popWord} from '../store';
 
 const Control = (props) => {
-  const { name, direction } = props;
+  const { name, direction, currentCard, processCard } = props;
   const ControlDiv = styled.div`
     width: 100px;
     height: 100px;
     font-size: 1.8rem;
     color: ${colors.header};
     text-align: center;
+    cursor: pointer;
   `;
 
+  const handleClick = () => {
+    processCard(currentCard);
+  };
+
   return (
-    <ControlDiv>
+    <ControlDiv onClick={handleClick}>
       <p>{name}</p>
       <Pointer direction={direction} />
     </ControlDiv>
@@ -26,17 +32,21 @@ const Control = (props) => {
 /**
  * CONTAINER
  */
-const mapState = () => ({});
-// const mapState = (state) => {
-//   return {
-//   };
-// };
+const mapState = state => {
+  return {
+    currentCard: state.wordQueue[0] || '',
+  };
+};
 
-const mapDispatch = () => ({});
-// const mapDispatch = (dispatch) => {
-//   return {
-//   };
-// };
+const mapDispatch = (dispatch, ownProps) => {
+  return {
+    processCard (word) {
+      if (!word.length) return;
+      dispatch(popWord());
+      console.log(`add ${word} to list: ${ownProps.name}`);
+    },
+  };
+};
 
 export default connect(mapState, mapDispatch)(Control);
 
@@ -46,4 +56,6 @@ export default connect(mapState, mapDispatch)(Control);
 Control.propTypes = {
   name: PropTypes.string.isRequired,
   direction: PropTypes.string.isRequired,
+  currentCard: PropTypes.string.isRequired,
+  processCard: PropTypes.func.isRequired,
 };
