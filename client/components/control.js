@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import {colors} from './styles';
 import Pointer from './pointer';
 import {connect} from 'react-redux';
-import {popWord} from '../store';
+import { popWord, likeTopic, dislikeTopic, haveNotTried } from '../store';
 
 const Control = (props) => {
   const { name, direction, currentCard, processCard } = props;
@@ -39,11 +39,25 @@ const mapState = state => {
 };
 
 const mapDispatch = (dispatch, ownProps) => {
+  let addToList;
+  switch (ownProps.name) {
+    case 'like':
+      addToList = word => dispatch(likeTopic(word));
+      break;
+    case 'dislike':
+      addToList = word => dispatch(dislikeTopic(word));
+      break;
+    case 'haven\'t tried':
+      addToList = word => dispatch(haveNotTried(word));
+      break;
+    default:
+      addToList = () => null;
+  }
   return {
     processCard (word) {
       if (!word.length) return;
       dispatch(popWord());
-      console.log(`add ${word} to list: ${ownProps.name}`);
+      addToList(word);
     },
   };
 };
