@@ -20,7 +20,7 @@ module.exports = () => {
           if (i !== j) {
             const targetNode = nodes[j];
             const edgeSim = similarity(G.node(sourceNode).vector, G.node(targetNode).vector);
-            console.log(`${sourceNode} to ${targetNode} is ${edgeSim}`);
+            // console.log(`${sourceNode} to ${targetNode} is ${edgeSim}`);
             G.setEdge(sourceNode, targetNode, edgeSim);
           }
         }
