@@ -10,9 +10,11 @@ const chunker = new LineCounter({
   numLines: 1000,
 });
 
+const nDims = 50;
 const seedWords = () => {
-  fullPath = path.join(__dirname, '/glove.twitter.27B/glove.twitter.27B.25d.txt');
-  const totalLines = 1193514; // lines in 25d
+  filePath = `/data/glove.6B/glove.6B.${nDims}d.txt`;
+  fullPath = path.join(__dirname, filePath);
+  const totalLines = 400000; // lines in 50d
 
   console.log(`Seeding db from ${fullPath}`);
   const readableStream = fs.createReadStream(fullPath);
@@ -58,10 +60,11 @@ const seedTopics = () => {
     topics = jsonfile.readFileSync(topicsFile);
     Topic.bulkCreate(
       topics.map((topic) => {
+        const phrase = topic.name.replace(/-/g, ' ').replace(/\W+/g, ' ').toLowerCase();
         return {
           name: topic.name.toLowerCase(),
           urlkey: topic.urlkey,
-          vector: randVector(25),
+          vector: calcVector(phrase),
         };
       }),
     );
@@ -70,11 +73,16 @@ const seedTopics = () => {
   }
 };
 
+const calcVector = (phrase) => {
+  const words = phrase.split(' ');
+  words.reduce();
+};
+
 const seedDb = () => {
   console.log('dropping ur tables & syncing db---');
   db.sync({ force: false }).then(() => {
     console.log('seeding db');
-    seedWords();
+    // seedWords();
     seedTopics();
   });
 };

@@ -13,8 +13,7 @@ Topic.findAll()
   })
   .then(() => {
     const nodes = G.nodes();
-    // const N = nodes.length;
-    const N = 3;
+    const N = nodes.length;
     for (let i = 0; i < N; i++) {
       const sourceNode = nodes[i];
       for (let j = 0; j < N; j++) {
