@@ -7,7 +7,6 @@ const Topic = require('./topic');
  *
  *    BlogPost.belongsTo(User)
  */
-// Topic.belongsToMany(Topic, { as: 'Topic1', through: 'TopicSimilarity' });
 
 /**
  * We'll export all of our models here, so that any time a module needs a model,
@@ -18,6 +17,5 @@ const Topic = require('./topic');
 
 module.exports = {
   Topic,
-  // TopicSimilarity,
   Word,
 };
