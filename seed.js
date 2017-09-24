@@ -11,8 +11,8 @@ const chunker = new LineCounter({
 });
 
 const seedWords = () => {
-  fullPath = path.join(__dirname, '/glove.twitter.27B/glove.twitter.27B.25d.txt');
-  const totalLines = 1193514; // lines in 25d
+  fullPath = path.join(__dirname, 'data/glove.6B/glove.6B.50d.txt');
+  const totalLines = 400000; // lines in 50d
 
   console.log(`Seeding db from ${fullPath}`);
   const readableStream = fs.createReadStream(fullPath);
@@ -61,7 +61,7 @@ const seedTopics = () => {
         return {
           name: topic.name.toLowerCase(),
           urlkey: topic.urlkey,
-          vector: randVector(25),
+          vector: randVector(50),
         };
       }),
     );

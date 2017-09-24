@@ -1,13 +1,13 @@
 const Word = require('./word');
 const Topic = require('./topic');
-const TopicSimilarity = require('./topicSimilarity');
+// const TopicSimilarity = require('./topicSimilarity');
 /**
  * If we had any associations to make, this would be a great place to put them!
  * ex. if we had another model called BlogPost, we might say:
  *
  *    BlogPost.belongsTo(User)
  */
-Topic.belongsToMany(Topic, { as: 'Topic1', through: 'TopicSimilarity' });
+// Topic.belongsToMany(Topic, { as: 'Topic1', through: 'TopicSimilarity' });
 
 /**
  * We'll export all of our models here, so that any time a module needs a model,
@@ -18,6 +18,6 @@ Topic.belongsToMany(Topic, { as: 'Topic1', through: 'TopicSimilarity' });
 
 module.exports = {
   Topic,
-  TopicSimilarity,
+  // TopicSimilarity,
   Word,
 };
