@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const db = require('./server/db');
-const { Word } = require('./server/db/models');
+const { Word, Topic } = require('./server/db/models');
 const jsonfile = require('jsonfile');
 const chunkingStreams = require('chunking-streams');
 const LineCounter = chunkingStreams.LineCounter;
@@ -10,8 +10,9 @@ const chunker = new LineCounter({
   numLines: 1000,
 });
 
-const seed = () => {
+const seedWords = () => {
   fullPath = path.join(__dirname, '/glove.twitter.27B/glove.twitter.27B.25d.txt');
+  const totalLines = 1193514; // lines in 25d
 
   console.log(`Seeding db from ${fullPath}`);
   const readableStream = fs.createReadStream(fullPath);
@@ -29,7 +30,7 @@ const seed = () => {
     });
     Word.bulkCreate(wordList).then((createdWords) => {
       totalCreated += createdWords.length;
-      if (totalCreated % 100000 === 0) console.log('created words:', totalCreated);
+      if (totalCreated % 10000 === 0) console.log(`${totalCreated / totalLines * 100}% done`);
     });
   });
 
@@ -42,15 +43,40 @@ const seed = () => {
   });
 };
 
-const seedDb = () => {
-  console.log('syncing db---');
-  db.sync({ force: true }).then(() => {
-    console.log('seeding db');
-    seed();
-  });
-  // .then(() => {
-  //   db.close();
-  //   return null;
-  // });
+const randVector = (n) => {
+  let arr = [];
+  for (let i = 0; i < n; i++) {
+    arr.push(Math.random());
+  }
+  return arr;
 };
+
+const seedTopics = () => {
+  const topicsFile = path.join(__dirname, '/data/topics.json');
+  if (fs.existsSync(topicsFile)) {
+    console.log(`Reading from ${topicsFile}`);
+    topics = jsonfile.readFileSync(topicsFile);
+    Topic.bulkCreate(
+      topics.map((topic) => {
+        return {
+          name: topic.name.toLowerCase(),
+          urlkey: topic.urlkey,
+          vector: randVector(25),
+        };
+      }),
+    );
+  } else {
+    console.log(`${topicsFile} not found.`);
+  }
+};
+
+const seedDb = () => {
+  console.log('dropping ur tables & syncing db---');
+  db.sync({ force: false }).then(() => {
+    console.log('seeding db');
+    seedWords();
+    seedTopics();
+  });
+};
+
 seedDb();
