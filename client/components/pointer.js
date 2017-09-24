@@ -13,7 +13,7 @@ const Pointer = (props) => {
   const direction = props.direction || 'none';
   return (
     <svg width="42" height="42" viewBox="0 0 42 42">
-      <g transform={align[direction]} stroke="#9E9895" strokewidth="2" fill="none">
+      <g transform={align[direction]} stroke="#9E9895" strokeWidth="2" fill="none">
         <circle fill="#F7F7F7" cx="20" cy="20" r="20" />
         <path
           d="M16.716 12.58l7.275 6.68c.408.373.435 1.006.06 1.413-.018.02-.038.04-.06.06l-7.274 6.68"
