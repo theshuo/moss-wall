@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import {colors} from './styles';
 import Selection from './selection';
+import Results from './results';
 import {connect} from 'react-redux';
 import { fetchWordList } from '../store';
 
@@ -42,13 +43,18 @@ class Main extends Component {
   }
 
   render () {
+    const { hasResults } = this.props;
     return (
       <MainDiv>
         <MainHeader>
           <MainHeaderText>MAKE UP YER MIND</MainHeaderText>
           <MainHeaderHr />
         </MainHeader>
-        <Selection />
+        {
+          hasResults ?
+          <Results /> :
+          <Selection />
+        }
       </MainDiv>
     );
   }
@@ -59,7 +65,7 @@ class Main extends Component {
  */
 const mapState = state => {
   return {
-    results: state.results,
+    hasResults: !!state.results.path,
   };
 };
 
@@ -77,6 +83,6 @@ export default connect(mapState, mapDispatch)(Main);
  * PROP TYPES
  */
 Main.propTypes = {
-  // results: PropTypes.object.isRequired,
+  hasResults: PropTypes.bool.isRequired,
   loadList: PropTypes.func.isRequired,
 };
