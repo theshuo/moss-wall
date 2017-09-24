@@ -2,10 +2,10 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import {colors} from './styles';
-import Card from './card';
-import Control from './control';
+import Selection from './selection';
+import Results from './results';
 import {connect} from 'react-redux';
-import {createQueue} from '../store';
+import { fetchWordList } from '../store';
 
 const MainDiv = styled.div`
   display: flex;
@@ -36,45 +36,25 @@ const MainHeaderHr = styled.hr`
   background: ${colors.header};
 `;
 
-const Content = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  flex: 1;
-  margin-bottom: 8rem;
-`;
-
-const ControlWrapper = styled.div`
-  display: flex;
-`;
-
 class Main extends Component {
-  constructor (props) {
-    super(props);
-    this.dummyQueue = ['Snoozing', 'Biking', 'Social Dancing', 'Water Sports', 'Programming', 'Chess'];
-  }
 
   componentDidMount () {
-    this.props.setList(this.dummyQueue);
+    this.props.loadList();
   }
 
   render () {
-    const { currentCard } = this.props;
+    const { hasResults } = this.props;
     return (
       <MainDiv>
         <MainHeader>
           <MainHeaderText>MAKE UP YER MIND</MainHeaderText>
           <MainHeaderHr />
         </MainHeader>
-        <Content>
-          <Card name={currentCard} />
-          <ControlWrapper>
-            <Control name="dislike" direction="left" />
-            <Control name="haven't tried" direction="down" />
-            <Control name="like" direction="right" />
-          </ControlWrapper>
-        </Content>
+        {
+          hasResults ?
+          <Results /> :
+          <Selection />
+        }
       </MainDiv>
     );
   }
@@ -85,14 +65,14 @@ class Main extends Component {
  */
 const mapState = state => {
   return {
-    currentCard: state.wordQueue[0] || 'DONE!',
+    hasResults: !!state.results.path,
   };
 };
 
 const mapDispatch = dispatch => {
   return {
-    setList (list) {
-      dispatch(createQueue(list));
+    loadList () {
+      dispatch(fetchWordList());
     }
   };
 };
@@ -103,6 +83,6 @@ export default connect(mapState, mapDispatch)(Main);
  * PROP TYPES
  */
 Main.propTypes = {
-  currentCard: PropTypes.string.isRequired,
-  setList: PropTypes.func.isRequired,
+  hasResults: PropTypes.bool.isRequired,
+  loadList: PropTypes.func.isRequired,
 };
