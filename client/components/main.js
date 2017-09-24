@@ -60,6 +60,7 @@ const Main = () => {
         <Card name="Snoozing" />
         <ControlWrapper>
           <Control name="dislike" direction="left" />
+          <Control name="haven't tried" direction="down" />
           <Control name="like" direction="right" />
         </ControlWrapper>
       </Content>

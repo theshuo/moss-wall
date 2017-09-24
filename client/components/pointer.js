@@ -5,6 +5,7 @@ import {colors} from './styles';
 const align = {
   left: 'translate(41 1) scale(-1 1)',
   right: 'translate(1 1)',
+  down: 'translate(1 1) rotate(90, 20, 20)',
   none: 'translate(1 1)',
 };
 
