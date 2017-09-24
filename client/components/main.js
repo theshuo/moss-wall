@@ -2,8 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import {colors} from './styles';
-import Card from './card';
-import Control from './control';
+import Selection from './selection';
 import {connect} from 'react-redux';
 import { fetchWordList } from '../store';
 
@@ -36,48 +35,20 @@ const MainHeaderHr = styled.hr`
   background: ${colors.header};
 `;
 
-const Content = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  flex: 1;
-  margin-bottom: 8rem;
-`;
-
-const ControlWrapper = styled.div`
-  display: flex;
-`;
-
 class Main extends Component {
 
   componentDidMount () {
     this.props.loadList();
   }
 
-  componentDidUpdate () {
-    if (this.props.currentCard === '') {
-      console.log('Final Selections:');
-      console.log(this.props.selections);
-    }
-  }
-
   render () {
-    const { currentCard } = this.props;
     return (
       <MainDiv>
         <MainHeader>
           <MainHeaderText>MAKE UP YER MIND</MainHeaderText>
           <MainHeaderHr />
         </MainHeader>
-        <Content>
-          <Card name={currentCard !== '' ? currentCard : 'DONE!'} />
-          <ControlWrapper>
-            <Control name="dislike" direction="left" />
-            <Control name="haven't tried" direction="down" />
-            <Control name="like" direction="right" />
-          </ControlWrapper>
-        </Content>
+        <Selection />
       </MainDiv>
     );
   }
@@ -88,12 +59,7 @@ class Main extends Component {
  */
 const mapState = state => {
   return {
-    currentCard: state.wordQueue[0] || '',
-    selections: {
-      yes: state.likedTopics,
-      no: state.dislikedTopics,
-      untried: state.untriedTopics,
-    },
+    results: state.results,
   };
 };
 
@@ -111,7 +77,6 @@ export default connect(mapState, mapDispatch)(Main);
  * PROP TYPES
  */
 Main.propTypes = {
-  currentCard: PropTypes.string.isRequired,
-  selections: PropTypes.object.isRequired,
+  // results: PropTypes.object.isRequired,
   loadList: PropTypes.func.isRequired,
 };
