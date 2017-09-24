@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import {colors} from './styles';
+import Pointer from './pointer';
 import {connect} from 'react-redux';
 
 const Control = (props) => {
@@ -9,33 +10,15 @@ const Control = (props) => {
   const ControlDiv = styled.div`
     width: 100px;
     height: 100px;
+    font-size: 1.8rem;
+    color: ${colors.header};
     text-align: center;
   `;
-
-  const pointerDir = {
-    left: (size) => `
-      border-top: ${size} solid transparent;
-      border-right: ${size} solid ${colors.header};
-      border-bottom: ${size} solid transparent;
-    `,
-    right: (size) => `
-      border-top: ${size} solid transparent;
-      border-left: ${size} solid ${colors.header};
-      border-bottom: ${size} solid transparent;
-    `,
-  };
-
-  const Pointer = styled.div`
-    width: 0;
-    height: 0;
-    ${ pointerDir[direction]('20px') }
-  `;
-
 
   return (
     <ControlDiv>
       <p>{name}</p>
-      <Pointer />
+      <Pointer direction={direction} />
     </ControlDiv>
   );
 };
