@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import {connect} from 'react-redux';
-import { fetchWordList, clearResults } from '../store';
+import { fetchWordList, clearResults, clearLikedTopics, clearDislikedTopics, clearUntriedTopics } from '../store';
 
 const Content = styled.div`
   display: flex;
@@ -56,6 +56,9 @@ const mapDispatch = dispatch => {
     reset () {
       dispatch(clearResults());
       dispatch(fetchWordList());
+      dispatch(clearLikedTopics());
+      dispatch(clearDislikedTopics());
+      dispatch(clearUntriedTopics());
     }
   };
 };
