@@ -32,10 +32,13 @@ const Results = (props) => {
     <Content>
       <h2>Here's your result</h2>
       <Path>
-        <PathItem>some item</PathItem>
+        { path.map(step => <PathItem key={step.name}>{step.name}</PathItem>) }
       </Path>
+      <p>so you should try:</p>
+      <h3>{event.name}</h3>
+      <h4>{event.venue.address_1}</h4>
       <ResetButton onClick={reset}>
-        Or Try Again?
+        You wanted something different, right?
       </ResetButton>
     </Content>
   );
