@@ -55,6 +55,13 @@ class Main extends Component {
     this.props.loadList();
   }
 
+  componentDidUpdate () {
+    if (this.props.currentCard === '') {
+      console.log('Final Selections:');
+      console.log(this.props.selections);
+    }
+  }
+
   render () {
     const { currentCard } = this.props;
     return (
@@ -64,7 +71,7 @@ class Main extends Component {
           <MainHeaderHr />
         </MainHeader>
         <Content>
-          <Card name={currentCard} />
+          <Card name={currentCard !== '' ? currentCard : 'DONE!'} />
           <ControlWrapper>
             <Control name="dislike" direction="left" />
             <Control name="haven't tried" direction="down" />
@@ -81,7 +88,12 @@ class Main extends Component {
  */
 const mapState = state => {
   return {
-    currentCard: state.wordQueue[0] || 'DONE!',
+    currentCard: state.wordQueue[0] || '',
+    selections: {
+      yes: state.likedTopics,
+      no: state.dislikedTopics,
+      untried: state.untriedTopics,
+    },
   };
 };
 
@@ -100,5 +112,6 @@ export default connect(mapState, mapDispatch)(Main);
  */
 Main.propTypes = {
   currentCard: PropTypes.string.isRequired,
+  selections: PropTypes.object.isRequired,
   loadList: PropTypes.func.isRequired,
 };
