@@ -43,7 +43,7 @@ router.post('/recommendations', (req, res, next) => {
         return b.sim - a.sim;
       });
     const start = 0;
-    const end = edges.length - 1;
+    const end = Math.floor(0.25 * edges.length - 1);
     const nextTopicIndex = getRandomInt(start, end);
     curTopic = edges[nextTopicIndex].to;
     journey.path.push({ name: curTopic, simtoPrev: edges[nextTopicIndex].sim });
