@@ -57,7 +57,7 @@ const mapState = state => {
 const mapDispatch = dispatch => {
   return {
     submitList (list) {
-      dispatch(fetchResults(list));
+      // dispatch(fetchResults(list));
     }
   };
 };

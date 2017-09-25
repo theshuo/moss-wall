@@ -70,7 +70,6 @@ const SpinnerBody = styled.ul`
   font-size: 10rem;
   width: 1em;
   height: 1em;
-  margin: 10rem auto;
   position: relative;
   list-style: none;
   border-radius: 50%;

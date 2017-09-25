@@ -11,10 +11,12 @@ const Card = (props) => {
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 32rem;
+    height: 26rem;
     margin-bottom: 3.8rem;
     border: 1px solid ${colors.cardBorder};
     border-radius: 20px;
-    padding: 4.2rem 6.4rem;
+    padding: 2.2rem 2.4rem;
     text-align: center;
     background: ${colors.card};
   `;
