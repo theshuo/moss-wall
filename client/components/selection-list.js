@@ -15,6 +15,7 @@ const ListWrapper = styled.div`
 `;
 
 const ListHeader = styled.h2`
+  margin-bottom: 1.2rem;
   font-family: ${fonts.title};
   font-size: 3.2rem;
 `;
@@ -26,9 +27,7 @@ const List = styled.ul`
 `;
 
 const ListItem = styled.li`
-  margin-top: 1.2rem;
-  border-bottom: 1px solid ${colors.header};
-  padding-bottom: 1.2rem;
+  margin: 1.2rem 0;
 `;
 
 const SelectionList = (props) => {

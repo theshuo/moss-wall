@@ -67,13 +67,11 @@ const spinnerStyles = (num) => {
 };
 
 const SpinnerBody = styled.ul`
-  font-size: 10rem;
+  font-size: 5rem;
   width: 1em;
   height: 1em;
   position: relative;
   list-style: none;
-  border-radius: 50%;
-  border: 2px solid ${colors.header};
 `;
 
 const SpinnerItem = styled.li`
