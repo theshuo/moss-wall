@@ -11,7 +11,7 @@ const Card = (props) => {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 32rem;
+    width: 46rem;
     height: 26rem;
     margin-bottom: 3.8rem;
     border: 1px solid ${colors.cardBorder};
@@ -22,7 +22,7 @@ const Card = (props) => {
   `;
 
   const CardName = styled.p`
-    font-size: 2.8rem;
+    font-size: 3.8rem;
     font-family: ${fonts.body};
     color: ${colors.header};
   `;

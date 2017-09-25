@@ -11,16 +11,17 @@ const Content = styled.div`
   justify-content: center;
   align-items: center;
   flex: 1;
-  margin-bottom: 8rem;
+  margin: 4.6rem 0 8rem 0;
   font-family: ${fonts.body};
   color: ${colors.header};
 `;
 
 const Result = styled.div`
+  width: 46rem;
   margin-bottom: 3.8rem;
   border: 1px solid ${colors.cardBorder};
   border-radius: 20px;
-  padding: 4.2rem 6.4rem;
+  padding: 2.2rem 2.4rem;
   text-align: center;
   font-size: 2.2rem;
   background: ${colors.card};
