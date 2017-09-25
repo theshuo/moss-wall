@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import {colors} from './styles';
+import { colors, fonts } from './styles';
 import Pointer from './pointer';
 import {connect} from 'react-redux';
 import { popWord, likeTopic, dislikeTopic, haveNotTried } from '../store';
@@ -11,10 +11,14 @@ const Control = (props) => {
   const ControlDiv = styled.div`
     width: 100px;
     height: 100px;
-    font-size: 1.8rem;
-    color: ${colors.header};
     text-align: center;
     cursor: pointer;
+  `;
+
+  const ControlText = styled.p`
+    font-family: ${fonts.body};
+    font-size: 1.8rem;
+    color: ${colors.header};
   `;
 
   const handleClick = () => {
@@ -23,7 +27,7 @@ const Control = (props) => {
 
   return (
     <ControlDiv onClick={handleClick}>
-      <p>{name}</p>
+      <ControlText>{name}</ControlText>
       <Pointer direction={direction} />
     </ControlDiv>
   );

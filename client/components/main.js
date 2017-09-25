@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import {colors} from './styles';
+import { colors, fonts } from './styles';
 import Selection from './selection';
 import Results from './results';
 import {connect} from 'react-redux';
@@ -22,7 +22,7 @@ const MainHeader = styled.header`
 
 const MainHeaderText = styled.h1`
   font-size: 4.6rem;
-  font-family: "Galano Grotesque DEMO", "Futura", sans-serif;
+  font-family: ${fonts.title};
   color: ${colors.header};
 `;
 

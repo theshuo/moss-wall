@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import {colors} from './styles';
+import { colors, fonts } from './styles';
 import {connect} from 'react-redux';
 
 const Card = (props) => {
@@ -20,7 +20,7 @@ const Card = (props) => {
 
   const CardName = styled.p`
     font-size: 2.8rem;
-    font-family: "Nunito", sans-serif;
+    font-family: ${fonts.body};
     color: ${colors.header};
   `;
 
