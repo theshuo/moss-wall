@@ -1,10 +1,10 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { colors, fonts } from './styles';
 import Selection from './selection';
 import Results from './results';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import { fetchWordList } from '../store';
 
 const MainDiv = styled.div`
@@ -16,12 +16,10 @@ const MainDiv = styled.div`
   text-align: center;
 `;
 
-const MainHeader = styled.header`
-  margin-top: 4rem;
-`;
+const MainHeader = styled.header`margin-top: 4rem;`;
 
 const MainHeaderText = styled.h1`
-  font-size: 4.6rem;
+  font-size: 10rem;
   font-family: ${fonts.title};
   color: ${colors.header};
 `;
@@ -37,24 +35,19 @@ const MainHeaderHr = styled.hr`
 `;
 
 class Main extends Component {
-
-  componentDidMount () {
+  componentDidMount() {
     this.props.loadList();
   }
 
-  render () {
+  render() {
     const { hasResults } = this.props;
     return (
       <MainDiv>
         <MainHeader>
-          <MainHeaderText>MAKE UP YER MIND</MainHeaderText>
+          <MainHeaderText>SAY YES.</MainHeaderText>
           <MainHeaderHr />
         </MainHeader>
-        {
-          hasResults ?
-          <Results /> :
-          <Selection />
-        }
+        {hasResults ? <Results /> : <Selection />}
       </MainDiv>
     );
   }
@@ -63,17 +56,17 @@ class Main extends Component {
 /**
  * CONTAINER
  */
-const mapState = state => {
+const mapState = (state) => {
   return {
     hasResults: !!state.results.path,
   };
 };
 
-const mapDispatch = dispatch => {
+const mapDispatch = (dispatch) => {
   return {
-    loadList () {
+    loadList() {
       dispatch(fetchWordList());
-    }
+    },
   };
 };
 
