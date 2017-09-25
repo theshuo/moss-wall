@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { colors, fonts } from './styles';
+import Spinner from './spinner';
 import {connect} from 'react-redux';
 
 const Card = (props) => {
@@ -27,7 +28,7 @@ const Card = (props) => {
 
   return (
     <CardDiv>
-      <CardName>{name}</CardName>
+      { name.length ? <CardName>{name}</CardName> : <Spinner /> }
     </CardDiv>
   );
 };
