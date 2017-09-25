@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import SelectionList from './selection-list.js';
 import Card from './card';
 import Control from './control';
 import {connect} from 'react-redux';
@@ -9,18 +8,11 @@ import { fetchResults } from '../store';
 
 const Content = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   flex: 1;
   margin-bottom: 8rem;
-`;
-
-const SelctionWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  flex: 1;
-  align-items: center;
 `;
 
 const ControlWrapper = styled.div`
@@ -34,19 +26,15 @@ class Selection extends Component {
   }
 
   render () {
-    const { currentCard, selections } = this.props;
+    const { currentCard } = this.props;
     return (
       <Content>
-        <SelectionList name="Disliked" list={selections.no} />
-        <SelctionWrapper>
-          <Card name={currentCard} />
-          <ControlWrapper>
-            <Control name="dislike" direction="left" />
-            <Control name="haven't tried" direction="down" />
-            <Control name="like" direction="right" />
-          </ControlWrapper>
-        </SelctionWrapper>
-        <SelectionList name="Liked" list={selections.yes} />
+        <Card name={currentCard} />
+        <ControlWrapper>
+          <Control name="dislike" direction="left" />
+          <Control name="haven't tried" direction="down" />
+          <Control name="like" direction="right" />
+        </ControlWrapper>
       </Content>
     );
   }
