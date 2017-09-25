@@ -20,12 +20,15 @@ const ListHeader = styled.h2`
 `;
 
 const List = styled.ul`
+  width: 26rem;
   list-style: none;
   color: ${colors.topic};
 `;
 
 const ListItem = styled.li`
-  border-bottom: 2px solid ${colors.header};
+  margin-top: 1.2rem;
+  border-bottom: 1px solid ${colors.header};
+  padding-bottom: 1.2rem;
 `;
 
 const SelectionList = (props) => {

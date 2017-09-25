@@ -38,8 +38,9 @@ const MainHeaderHr = styled.hr`
 const MainContent = styled.div`
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   flex: 1;
+  margin-top: 4.6rem;
 `;
 
 class Main extends Component {
