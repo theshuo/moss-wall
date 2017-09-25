@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { colors, fonts } from './styles';
+import Spinner from './spinner';
 import {connect} from 'react-redux';
 
 const Card = (props) => {
@@ -10,10 +11,12 @@ const Card = (props) => {
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 32rem;
+    height: 26rem;
     margin-bottom: 3.8rem;
     border: 1px solid ${colors.cardBorder};
     border-radius: 20px;
-    padding: 4.2rem 6.4rem;
+    padding: 2.2rem 2.4rem;
     text-align: center;
     background: ${colors.card};
   `;
@@ -27,7 +30,7 @@ const Card = (props) => {
 
   return (
     <CardDiv>
-      <CardName>{name}</CardName>
+      { name.length ? <CardName>{name}</CardName> : <Spinner /> }
     </CardDiv>
   );
 };

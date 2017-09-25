@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { colors, fonts } from './styles';
+import SelectionList from './selection-list.js';
 import Selection from './selection';
 import Results from './results';
 import { connect } from 'react-redux';
@@ -11,7 +12,7 @@ const MainDiv = styled.div`
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  height: 100%;
+  min-height: 100%;
   background: ${colors.background};
   text-align: center;
 `;
@@ -34,20 +35,32 @@ const MainHeaderHr = styled.hr`
   background: ${colors.header};
 `;
 
+const MainContent = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex: 1;
+  margin-top: 4.6rem;
+`;
+
 class Main extends Component {
   componentDidMount() {
     this.props.loadList();
   }
 
   render() {
-    const { hasResults } = this.props;
+    const { liked, disliked, hasResults } = this.props;
     return (
       <MainDiv>
         <MainHeader>
           <MainHeaderText>SAY YES.</MainHeaderText>
           <MainHeaderHr />
         </MainHeader>
-        {hasResults ? <Results /> : <Selection />}
+        <MainContent>
+          <SelectionList name="Disliked" list={disliked} />
+          {hasResults ? <Results /> : <Selection />}
+          <SelectionList name="Liked" list={liked} />
+        </MainContent>
       </MainDiv>
     );
   }
@@ -58,6 +71,8 @@ class Main extends Component {
  */
 const mapState = (state) => {
   return {
+    liked: state.likedTopics,
+    disliked: state.dislikedTopics,
     hasResults: !!state.results.path,
   };
 };
@@ -76,6 +91,8 @@ export default connect(mapState, mapDispatch)(Main);
  * PROP TYPES
  */
 Main.propTypes = {
+  liked: PropTypes.array.isRequired,
+  disliked: PropTypes.array.isRequired,
   hasResults: PropTypes.bool.isRequired,
   loadList: PropTypes.func.isRequired,
 };

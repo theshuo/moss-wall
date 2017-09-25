@@ -12,7 +12,7 @@ const Content = styled.div`
   justify-content: center;
   align-items: center;
   flex: 1;
-  margin-bottom: 8rem;
+  margin: 4.6rem 0 8rem 0;
 `;
 
 const ControlWrapper = styled.div`

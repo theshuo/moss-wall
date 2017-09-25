@@ -41,11 +41,11 @@ const Path = styled.ol`
 const PathItem = styled.li`
   margin-bottom: 0.5rem;
   font-size: 2.4rem;
-  color: #249190;
+  color: ${colors.topic};
 `;
 
 const PathName = styled.span`
-  color: #249190;
+  color: ${colors.topic};
 `;
 
 const Event = styled.h3`
